@@ -11,13 +11,45 @@
 	<body>
 		<header>
 			<nav>
-				<form>
-					<input type="text" placeholder="Search" name="search" />
-					<button type="submit"><i class="searchBtn"></i></button>
+				<form id="searchForm">
+					<div>
+						<input type="text" id="search" placeholder="search" name="search" />
+					</div>
+
+					<div>
+						<input
+							type="number"
+							id="numberOfPics"
+							name="numbersOfPics"
+							min="1"
+							max="500"
+						/>
+						<label for="numberOfPics">Number of pictures</label>
+					</div>
+					<div>
+						<h3>Select size:</h3>
+
+						<div>
+							<input type="radio" id="small" name="size" value="small" />
+							<label for="small">Small</label>
+						</div>
+
+						<div>
+							<input type="radio" id="medium" name="size" value="medium" />
+							<label for="medium">Medium</label>
+						</div>
+
+						<div>
+							<input type="radio" id="large" name="size" value="large" />
+							<label for="large">Large</label>
+						</div>
+					</div>
+
+					<button type="submit" id="submitBtn">Search</button>
 				</form>
 			</nav>
 		</header>
-		<main></main>
+		<main id="main"></main>
 		<footer></footer>
 	</body>
 </html>
