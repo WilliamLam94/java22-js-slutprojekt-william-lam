@@ -14,6 +14,11 @@ let radioValue;
 
 formEl.addEventListener('submit', async (e) => {
 	e.preventDefault();
+
+	if (mainEl.hasChildNodes()) {
+		mainEl.innerHTML = '';
+	}
+
 	searchInputValue = searchInputEl.value;
 	numberOfPicsValue = numbersOfPicsEl.value;
 
@@ -23,40 +28,58 @@ formEl.addEventListener('submit', async (e) => {
 		}
 	});
 
-	const data = await fetchImages(searchInputValue, numberOfPicsValue);
+	const data = await fetchImages(
+		searchInputValue,
+		numberOfPicsValue,
+		radioValue
+	);
 
-	console.log('data', data);
+	if (data.length >= 0) {
+		const searchParagraph = document.createElement('p');
+		searchParagraph.innerText = `Found ${data.length} results of ${searchInputValue} in size ${radioValue}`;
 
-	// const images = data.forEach((photo) => fetchImageSize(photo.id));
+		mainEl.append(searchParagraph);
 
-	// console.log('images', images);
-
-	const searchParagraph = document.createElement('p');
-	searchParagraph.innerText = `Found ${numberOfPicsValue} results of ${searchInputValue} in size ${radioValue}`;
-
-	mainEl.append(searchParagraph);
+		data.map((picture) => {
+			const img = document.createElement('img');
+			img.src = picture;
+			mainEl.append(img);
+		});
+	} else {
+		const resultParagraph = document.createElement('p');
+		resultParagraph.innerText = `No results of ${searchInputValue}`;
+	}
 });
 
-async function fetchImages(inputValue, numberOfImages) {
+async function fetchImages(inputValue, numberOfImages, size) {
 	try {
 		const data = await fetch(
 			`${baseUrl}&text=${inputValue}&per_page=${numberOfImages}&format=json&nojsoncallback=1`
 		).then((response) => response.json());
 
-		return data.photos.photo;
+		const imageIds = data.photos.photo.map((photo) => photo.id);
+
+		const images = await Promise.all(
+			imageIds.map((imageId) => fetchImageSize(imageId, size))
+		);
+
+		return images;
 	} catch (error) {
-		console.log('error', error);
+		const errorMsg = document.createElement('p');
+
+		errorMsg.innerText = error.message;
+		mainEl.append(errorMsg);
 	}
 }
 
-function fetchImageSize(photoId, size) {
-	const data = fetch(
+async function fetchImageSize(photoId, sizeValue) {
+	const res = await fetch(
 		`${sizeUrl}&photo_id=${photoId}&format=json&nojsoncallback=1`
-	);
+	).then((response) => response.json());
 
-	// forEach on all images
-	// match size value
-	// return source url
+	const sizes = res.sizes.size;
 
-	return data;
+	const found = sizes.find((size) => size.label.toLowerCase() === sizeValue);
+
+	return found.source;
 }
