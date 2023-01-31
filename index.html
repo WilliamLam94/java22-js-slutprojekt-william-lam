@@ -6,50 +6,47 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="css/style.css" />
 		<script src="./js/script.js" defer></script>
-		<title>Document</title>
+		<title>Search Gallery</title>
 	</head>
 	<body>
 		<header>
-			<nav>
-				<form id="searchForm">
+			<form id="searchForm">
+				<div>
+					<input type="text" id="search" placeholder="search" name="search" />
+				</div>
+
+				<div>
+					<input
+						type="number"
+						id="numberOfPics"
+						name="numbersOfPics"
+						min="1"
+						max="500"
+					/>
+					<label for="numberOfPics">Number of pictures</label>
+				</div>
+				<div>
+					<h3>Select size:</h3>
+
 					<div>
-						<input type="text" id="search" placeholder="search" name="search" />
+						<input type="radio" id="small" name="size" value="small" />
+						<label for="small">Small</label>
 					</div>
 
 					<div>
-						<input
-							type="number"
-							id="numberOfPics"
-							name="numbersOfPics"
-							min="1"
-							max="500"
-						/>
-						<label for="numberOfPics">Number of pictures</label>
+						<input type="radio" id="medium" name="size" value="medium" />
+						<label for="medium">Medium</label>
 					</div>
+
 					<div>
-						<h3>Select size:</h3>
-
-						<div>
-							<input type="radio" id="small" name="size" value="small" />
-							<label for="small">Small</label>
-						</div>
-
-						<div>
-							<input type="radio" id="medium" name="size" value="medium" />
-							<label for="medium">Medium</label>
-						</div>
-
-						<div>
-							<input type="radio" id="large" name="size" value="large" />
-							<label for="large">Large</label>
-						</div>
+						<input type="radio" id="large" name="size" value="large" />
+						<label for="large">Large</label>
 					</div>
+				</div>
 
-					<button type="submit" id="submitBtn">Search</button>
-				</form>
-			</nav>
+				<button type="submit" id="submitBtn">Search</button>
+			</form>
 		</header>
 		<main id="main"></main>
-		<footer></footer>
 	</body>
 </html>
