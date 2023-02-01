@@ -5,46 +5,57 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="css/style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Kanit&display=swap"
+			rel="stylesheet"
+		/>
 		<script src="./js/script.js" defer></script>
 		<title>Search Gallery</title>
 	</head>
 	<body>
 		<header>
 			<form id="searchForm">
-				<div>
-					<input type="text" id="search" placeholder="search" name="search" />
-				</div>
-
-				<div>
-					<input
-						type="number"
-						id="numberOfPics"
-						name="numbersOfPics"
-						min="1"
-						max="500"
-					/>
-					<label for="numberOfPics">Number of pictures</label>
-				</div>
-				<div>
-					<h3>Select size:</h3>
-
+				<section class="container">
 					<div>
-						<input type="radio" id="small" name="size" value="small" />
-						<label for="small">Small</label>
+						<input type="text" id="search" placeholder="search" name="search" />
 					</div>
 
 					<div>
-						<input type="radio" id="medium" name="size" value="medium" />
-						<label for="medium">Medium</label>
+						<input
+							type="number"
+							id="numberOfPics"
+							name="numbersOfPics"
+							min="1"
+							max="500"
+						/>
+						<label for="numberOfPics">Number of pictures</label>
 					</div>
-
+				</section>
+				<section class="size">
 					<div>
-						<input type="radio" id="large" name="size" value="large" />
-						<label for="large">Large</label>
-					</div>
-				</div>
+						<h3>Select size:</h3>
 
-				<button type="submit" id="submitBtn">Search</button>
+						<div>
+							<input type="radio" id="small" name="size" value="small" />
+							<label for="small">Small</label>
+						</div>
+
+						<div>
+							<input type="radio" id="medium" name="size" value="medium" />
+							<label for="medium">Medium</label>
+						</div>
+
+						<div>
+							<input type="radio" id="large" name="size" value="large" />
+							<label for="large">Large</label>
+						</div>
+					</div>
+				</section>
+				<section class="submitBtn">
+					<button type="submit" id="submitBtn">Search</button>
+				</section>
 			</form>
 		</header>
 		<main id="main"></main>
