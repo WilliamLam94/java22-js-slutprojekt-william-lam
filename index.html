@@ -21,7 +21,13 @@
 				<section class="container">
 					<label for="searchFor">Enter random </label>
 					<div>
-						<input type="text" id="search" placeholder="search" name="search" />
+						<input
+							type="text"
+							id="search"
+							placeholder="search"
+							name="search"
+							required
+						/>
 					</div>
 
 					<div>
@@ -31,6 +37,7 @@
 							name="numbersOfPics"
 							min="1"
 							max="500"
+							required
 						/>
 						<label for="numberOfPics">Number of pictures</label>
 					</div>
@@ -40,17 +47,38 @@
 						<h3>Select size:</h3>
 
 						<div>
-							<input type="radio" id="small" name="size" value="small" />
+							<input
+								type="radio"
+								id="small"
+								name="size"
+								value="small"
+								required
+								value="Small"
+							/>
 							<label for="small">Small</label>
 						</div>
 
 						<div>
-							<input type="radio" id="medium" name="size" value="medium" />
+							<input
+								type="radio"
+								id="medium"
+								name="size"
+								value="medium"
+								required
+								value="Medium"
+							/>
 							<label for="medium">Medium</label>
 						</div>
 
 						<div>
-							<input type="radio" id="large" name="size" value="large" />
+							<input
+								type="radio"
+								id="large"
+								name="size"
+								value="large"
+								required
+								value="Large"
+							/>
 							<label for="large">Large</label>
 						</div>
 					</div>
