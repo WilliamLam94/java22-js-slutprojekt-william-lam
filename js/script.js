@@ -33,6 +33,7 @@ formEl.addEventListener('submit', async (e) => {
 		numberOfPicsValue,
 		radioValue
 	);
+	console.log('data', data);
 
 	if (data.length >= 0) {
 		const searchParagraph = document.createElement('p');
@@ -53,10 +54,13 @@ formEl.addEventListener('submit', async (e) => {
 
 async function fetchImages(inputValue, numberOfImages, size) {
 	try {
-		const data = await fetch(
+		const result = await fetch(
 			`${baseUrl}&text=${inputValue}&per_page=${numberOfImages}&format=json&nojsoncallback=1`
-		).then((response) => response.json());
-
+		);
+		if (!result.ok) {
+			throw new Error('Network response was not OK');
+		}
+		const data = await result.json();
 		const imageIds = data.photos.photo.map((photo) => photo.id);
 
 		const images = await Promise.all(
@@ -69,17 +73,27 @@ async function fetchImages(inputValue, numberOfImages, size) {
 
 		errorMsg.innerText = error.message;
 		mainEl.append(errorMsg);
+
+		console.log('errorImg', error.message);
 	}
 }
 
 async function fetchImageSize(photoId, sizeValue) {
-	const res = await fetch(
-		`${sizeUrl}&photo_id=${photoId}&format=json&nojsoncallback=1`
-	).then((response) => response.json());
+	try {
+		const result = await fetch(
+			`${sizeUrl}&photo_id=${photoId}&format=json&nojsoncallback=1`
+		);
+		if (!result.ok) {
+			const text = await result.text();
+			throw Error(text);
+		}
+		const data = await result.json();
+		const sizes = data.sizes.size;
 
-	const sizes = res.sizes.size;
+		const found = sizes.find((size) => size.label.toLowerCase() === sizeValue);
 
-	const found = sizes.find((size) => size.label.toLowerCase() === sizeValue);
-
-	return found.source;
+		return found.source;
+	} catch (error) {
+		console.log('errorSize', error);
+	}
 }
